@@ -214,10 +214,9 @@ def build_fed_sgd(
       `LearningAlgorithmState` whose type matches that of the output
       of `initialize`, and `{B*}@CLIENTS` represents the client datasets, where
       `B` is the type of a single batch. This computation returns a
-      `LearningAlgorithmState` representing the updated server state and metrics
-      that are the result of `tff.learning.Model.federated_output_computation`
-      during client training and any other metrics from broadcast and
-      aggregation processes.
+      `LearningAlgorithmState` representing the updated server state and
+      aggregated metrics during client training and any other metrics from
+      broadcast and aggregation processes.
   *   `get_model_weights`: A `tff.Computation` with type signature `(S -> M)`,
       where `S` is a `tff.learning.templates.LearningAlgorithmState` whose type
       matches the output of `initialize` and `M` represents the type of the
