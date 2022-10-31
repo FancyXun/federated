@@ -35,7 +35,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('host', 'localhost', 'The host to connect to.')
 flags.DEFINE_string('port', '30000', 'The port to connect to.')
 flags.DEFINE_integer('n_clients', 1, 'Number of clients.')
-flags.DEFINE_integer('n_rounds', 3, 'Number of rounds.')
+flags.DEFINE_integer('n_rounds', 10, 'Number of rounds.')
 
 
 def build_synthetic_emnist():

@@ -22,10 +22,38 @@ from tensorflow_federated.python.simulation import server_utils
 
 
 def main(argv):
-    ex = eager_tf_executor.EagerTFExecutor()
-    ex_factory = python_executor_stacks.ResourceManagingExecutorFactory(
-        lambda _: ex)
-    server_utils.run_server(ex_factory, 10, 30000, None, None)
+
+    '''
+    def _maybe_wrap_stack_fn(stack_fn, ex_factory):
+        """The stack_fn for SizingExecutorFactory requires two outputs.
+
+        If required, we will wrap the stack_fn and provide a whimsy value as the
+        second return value.
+
+        Args:
+          stack_fn: The original stack_fn
+          ex_factory: A class which inherits from ExecutorFactory.
+
+        Returns:
+          A stack_fn that might additionally return a list as the second value.
+        """
+        if ex_factory == python_executor_stacks.SizingExecutorFactory:
+            return lambda x: (stack_fn(x), [])
+        else:
+            return stack_fn
+
+    def _stack_fn(x):
+      del x  # Unused
+      return eager_tf_executor.EagerTFExecutor()
+
+    ex_factory = python_executor_stacks.ResourceManagingExecutorFactory
+    maybe_wrapped_stack_fn = _maybe_wrap_stack_fn(_stack_fn, ex_factory)
+    factory = ex_factory(maybe_wrapped_stack_fn)
+    '''
+
+    factory = python_executor_stacks.local_executor_factory(default_num_clients=3)
+
+    server_utils.run_server(factory, 10, 30000, None, None)
 
 
 if __name__ == '__main__':
