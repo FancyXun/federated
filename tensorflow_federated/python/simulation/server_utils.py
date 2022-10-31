@@ -78,6 +78,7 @@ def server_context(ex_factory: executor_factory.ExecutorFactory,
       server.add_insecure_port(full_port_string)
     executor_pb2_grpc.add_ExecutorGroupServicer_to_server(service, server)
     server.start()
+    logging.info('Server listen: {}'.format(port))
     yield server
   except KeyboardInterrupt:
     logging.info('Server stopped by KeyboardInterrupt.')
